@@ -1,8 +1,14 @@
 (ns bender.dashboard
   (:gen-class :name dashboard)
-  (:import (edu.wpi.first.wpilibj.smartdashboard SmartDashboard)
+  (:import (edu.wpi.first.wpilibj.shuffleboard Shuffleboard)
            (edu.wpi.first.wpilibj BuiltInAccelerometer)))
+
+(declare sensors-tab)
 
 (defn put-accelerometer
   []
-  (SmartDashboard/putData (BuiltInAccelerometer.)))
+  (.add (sensors-tab) "Accelerometer" (BuiltInAccelerometer.)))
+
+(defn- sensors-tab
+  []
+  (Shuffleboard/getTab "Sensors"))
