@@ -1,0 +1,46 @@
+#!/bin/bash
+
+robot="roboRIO-9999.local"
+
+log_info () {
+    red=`tput setaf 1`
+    green=`tput setaf 2`
+    yellow=`tput setaf 3`
+    cyan=`tput setaf 6`
+    reset=`tput sgr0`
+
+    echo "${yellow}[bender-deploy] ${green}$1${reset}"
+};
+
+send_command () {
+    ssh lvuser@${robot} "${1}"
+};
+
+send_admin_command () {
+    echo "============"
+    echo "PRESS ENTER for next section (no password)"
+    echo "============"
+    ssh admin@${robot} "${1}"
+};
+
+copy_file () {
+    scp $1 lvuser@${robot}:$2
+};
+
+log_info "removing old uberjar..."
+rm -rf ./target/uberjar
+
+log_info "creating new uberjar..."
+lein uberjar
+
+log_info "copying uberjar to robot..."
+copy_file ./target/uberjar/bender-*.jar /home/lvuser/FRCUserProgram.jar
+
+log_info "killing old code..."
+send_admin_command "killall netconsole-host"
+
+log_info "launching new code..."
+restart_robot=". /etc/profile.d/natinst-path.sh; /usr/local/frc/bin/frcKillRobot.sh -t -r;"
+send_command "${restart_robot}"
+
+log_info "done."

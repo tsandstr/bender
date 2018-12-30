@@ -6,15 +6,14 @@ Clojure code for Bender, a simple [FIRST FRC](https://www.usfirst.org/roboticspr
 
 Clone the project locally. Install Leiningen.
 
-### Build
+Edit the `./deploy` script and change `robot` to be your robot's network name.
+
+### Build and Deploy
 
 ```bash
-lein uberjar
+# creates uberjar and uploads to roborio
+./deploy
 ```
-
-## Options
-
-FIXME: listing of options this app accepts.
 
 ## License
 
