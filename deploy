@@ -1,6 +1,7 @@
 #!/bin/bash
 
-robot="roboRIO-9999.local"
+team="9999"
+robot="roboRIO-${team}-frc.local"
 
 log_info () {
     red=`tput setaf 1`

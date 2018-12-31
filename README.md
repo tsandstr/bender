@@ -6,7 +6,7 @@ Clojure code for Bender, a simple [FIRST FRC](https://www.usfirst.org/roboticspr
 
 Clone the project locally. Install Leiningen.
 
-Edit the `./deploy` script and change `robot` to be your robot's network name.
+Edit the `./deploy` script and change `team` to be your team number.
 
 ### Build and Deploy
 
